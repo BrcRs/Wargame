@@ -8,9 +8,10 @@ class Unit():
 
     directions = {"up" : (-1, 0), "right":(0, 1), "left": (0, -1), "down" : (1, 0)}
 
-    def __init__(self):
+    def __init__(self, pos):
         self.life = Unit.life
         self.atk = Unit.atk
+        self.pos = pos
     
     def set_pos(self, p):
         self.x, self.y = p
