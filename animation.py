@@ -1,28 +1,31 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+from matplotlib.animation import FuncAnimation
+import numpy as np
 
-k = 2*np.pi
-w = 2*np.pi
-dt = 0.01
+dt = 0.005
+n=20
+L = 1
+particles=np.zeros(n,dtype=[("position", float , 2),
+                           ("velocity", float ,2),
+                           ("force", float ,2),
+                           ("size", float , 1)])
 
-xmin = 0
-xmax = 3
-nbx = 151
+particles["position"]=np.random.uniform(0,L,(n,2));
+particles["velocity"]=np.zeros((n,2));
+particles["size"]=0.5*np.ones(n);
 
-x = np.linspace(xmin, xmax, nbx)
+fig = plt.figure(figsize=(7,7))
+ax = plt.axes(xlim=(0,L),ylim=(0,L))
+scatter=ax.scatter(particles["position"][:,0], particles["position"][:,1])
 
-fig = plt.figure() # initialise la figure
-line, = plt.plot([], []) 
-plt.xlim(xmin, xmax)
-plt.ylim(-1, 1)
+def update(frame_number):
+   particles["force"]=np.random.uniform(-2,2.,(n,2));
+   particles["velocity"] = particles["velocity"] + particles["force"]*dt
+   particles["position"] = particles["position"] + particles["velocity"]*dt
 
-def animate(i): 
-    t = i * dt
-    y = np.cos(k*x - w*t)
-    line.set_data(x, y)
-    return line,
- 
-ani = animation.FuncAnimation(fig, animate, frames=100, blit=True, interval=20, repeat=False)
+   particles["position"] = particles["position"]%L
+   scatter.set_offsets(particles["position"])
+   return scatter,
 
+anim = FuncAnimation(fig, update, interval=10)
 plt.show()

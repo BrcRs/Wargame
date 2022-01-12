@@ -29,10 +29,12 @@ def main():
         u = random.choice(units)
         p = u.player
         done = env.step(p, u)
-        history.append(env.map.copy())
-    
-    if display:
-        ani.animate(history)
+        history.append(units)
+        if display:
+            print(env.map)
+            time.sleep(0.01)
+    # if display:
+    #     ani.animate(env.map, history)
 
 if __name__ == "__main__":
     main()
