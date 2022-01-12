@@ -12,8 +12,33 @@ def Environment():
     def upd_map(self, player, action):
         raise NotImplementedError()
 
-    def get_state(self, player):
-        raise NotImplementedError()
+    def get_state(self, player, u):
+        """
+        Returns the current state of the game in the point of view of `player`.
+        The player should know about:
+            - The current unit he's about to play
+            - The current positions of its units
+            - The current health of its units
+            (- the map? or static for now?)
+            - The current positions of enemy units
+            - The current health of enemy units
+        """
+        state = ""
+        
+        state += str(u.x) + "," + str(u.y) + " "
+        # Allied units
+        sorted_units = player.units.copy()
+        sorted_units.sort(key = lambda f: f.x * 1000 + f.y) # TODO find something better
+        for unit in sorted_units:
+            state += str(unit.life) + ":" + str(unit.x) + "," + str(unit.y) + " "
+        state += "|"
+        # Ennemy units
+        s_ennemy_units = [un for un in p.units for p in self.players if un.team != u.team]
+        s_ennemy_units.sort(key = lambda f: f.x * 1000 + f.y) # TODO find something better
+        for unit in s_ennemy_units:
+            state += str(unit.life) + ":" + str(unit.x) + "," + str(unit.y) + " "
+
+        return state
 
     def render(self):
         raise NotImplementedError()

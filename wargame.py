@@ -26,8 +26,16 @@ def main():
     units = [u for u in p.units for p in players]
     history = []
     while not done:
+        if len(units) == 0:
+            units = [u for u in p.units for p in players]
+        
         u = random.choice(units)
+        units.remove(u)
+        if u.is_dead():
+            continue
+
         p = u.player
+        # step gives the player the moment to play
         done = env.step(p, u)
         history.append(units)
         if display:
