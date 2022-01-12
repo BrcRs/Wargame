@@ -1,5 +1,5 @@
 from abc import abstractclassmethod
-
+from unit import Unit
 
 class Player():
     
@@ -12,6 +12,8 @@ class Player():
     def decide(self, state, unit):
         raise NotImplementedError()
 
+    def add_unit(self, pos):
+        self.units.append(Unit(pos))
 
 class Human(Player):
     pass
