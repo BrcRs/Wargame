@@ -1,10 +1,20 @@
 
+from tools import is_number
+from player import *
 
-
-def Environment():
+class Environment():
     def __init__(self, map=None, discrete=["state", "action"]):
         self.map = map
-        self.players = []
+        self.players = {}
+        for i in range(len(self.map)):
+            for j in range(len(self.map[i])):
+                if is_number(self.map[i][j]):
+                    n = self.map[i][j]
+                    self.map[i][j] = ''
+                    if n not in self.players.keys():
+                        self.players.append(QAI(n))
+                    self.players[n].add_unit((i, j))
+                    
 
     def add_player(self, p):
         self.players.append(p)

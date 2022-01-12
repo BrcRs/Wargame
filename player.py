@@ -1,7 +1,7 @@
 from abc import abstractclassmethod
 
 
-def Player():
+class Player():
     
     def __init__(self):
         self.units = []
@@ -12,8 +12,8 @@ def Player():
         raise NotImplementedError()
 
 
-def Human(Player):
+class Human(Player):
     pass
 
-def QAI(Player):
+class QAI(Player):
     pass

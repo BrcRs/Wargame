@@ -1,6 +1,6 @@
 from rewards import *
 
-def Unit():
+class Unit():
     life = 10
     atk = 1
 
