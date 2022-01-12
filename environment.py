@@ -54,7 +54,7 @@ class Environment():
         raise NotImplementedError()
 
     def step(self, player, unit):
-        state = get_state(player)
+        state = self.get_state(player)
         action = player.decide(state, unit)
 
         reward = self.upd_map(player, action)
