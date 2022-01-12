@@ -25,3 +25,6 @@ class Unit():
             reward += rewards['attack']
 
         return reward
+
+    def is_dead(self):
+        return self.life <= 0
