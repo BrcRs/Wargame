@@ -31,9 +31,9 @@ class QAI(Player):
     def reset(self):
         self.eps = QAI.eps_init
 
-    def decide(self, env, state, unit): # DONE finish
+    def decide(self, env, state, unit):
         self.eps *= QAI.eps_decay
-        available_actions = unit.valid_actions(env) # TODO write that method
+        available_actions = unit.valid_actions(env)
         if state not in self.Q.keys():
             self.Q[state] = {}
         for a in available_actions:
@@ -41,7 +41,7 @@ class QAI(Player):
                 self.Q[state][a] = 0.
         if random.random() < self.eps:
             # action = random action from action space
-            action = unit.actions[random.choice(available_actions)] # TODO comprehensive action space in unit
+            action = unit.actions[random.choice(available_actions)]
         else:
             # action = best action from Q = max_i(Q(S, i))
             action = unit.actions[max(available_actions, key = lambda x: self.Q[state][x])]

@@ -60,8 +60,9 @@ class Environment():
         state = self.get_state(player)
         action = player.decide(state, unit)
 
-        reward = self.upd_map(player, action)
-
+        reward = unit.action(self)
+        newstate = self.get_state(player)
+        player.get_feedback(state, action, reward, newstate)
 
         for p in self.players:
             if len(p.units) == 0:
