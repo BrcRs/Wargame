@@ -33,7 +33,7 @@ class QAI(Player):
 
     def decide(self, env, state, unit): # DONE finish
         self.eps *= QAI.eps_decay
-        available_actions = env.valid_actions(state, unit) # TODO write that method
+        available_actions = unit.valid_actions(env) # TODO write that method
         if state not in self.Q.keys():
             self.Q[state] = {}
         for a in available_actions:
