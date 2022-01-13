@@ -6,6 +6,7 @@ class Environment():
     def __init__(self, map=None, discrete=["state", "action"]):
         self.map = map
         self.players = {}
+        self.walls = []
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
                 if is_number(self.map[i][j]):
@@ -14,6 +15,8 @@ class Environment():
                     if n not in self.players.keys():
                         self.players.append(QAI(n))
                     self.players[n].add_unit((i, j))
+                if self.map[i][j] == "W":
+                    self.walls.append((i, j))
                     
 
     def add_player(self, p):
@@ -65,3 +68,9 @@ class Environment():
                 return True
         
         return False
+    
+    def is_empty(self, point):
+        u_points = [un.pos for un in p.units for p in self.players]
+        if point in u_points or point in self.walls:
+            return False
+        return True
