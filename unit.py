@@ -41,5 +41,5 @@ class Unit():
     
     def valid_actions(self, env):
         valid_actions = [k for k in self.actions.keys() if k[:3] == "atk"]
-        mov_keys = [k for k in self.actions.keys() if k[:3] == "mov" and env.is_empty(self.pos + self.directions[k])]
+        mov_keys = [k for k in self.actions.keys() if k[:3] == "mov" and env.is_empty((self.pos[0] + self.directions[k][0], self.pos[1] + self.directions[k][1]))]
         return valid_actions + mov_keys
